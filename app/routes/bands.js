@@ -3,7 +3,7 @@ import Band from '../models/band';
 import Song from '../models/song';
 
 export default Ember.Route.extend({
-  model: function() {
+  model() {
     var blackDog = Song.create({
       title: 'Black Dog',
       band: 'Led Zeppelin',
@@ -33,7 +33,7 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    createBand: function() {
+    createBand() {
       var name = this.get('controller').get('name');
       var band = Band.create({ name: name });
       this.modelFor('bands').pushObject(band);

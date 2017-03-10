@@ -12,4 +12,4 @@ export default Ember.Object.extend({
       this.set('songs', []);
     }
   }),
-})
+});

@@ -1,8 +1,10 @@
 <ul class="list-group songs">
   {{#if canCreateSong}}
 	<li class="list-group-item">
-		{{input type="text" class="new-song" placeholder="New Song" value=title}}
-		<button class="btn btn-primary btn-sm new-song-button" disabled={{isAddButtonDisabled}} {{action "createSong"}}>Add</button>
+    <form {{action "createSong" on="submit"}}>
+  		{{input type="text" class="new-song" placeholder="New Song" value=title}}
+  		<button type="submit" class="btn btn-primary btn-sm new-song-button" disabled={{isAddButtonDisabled}}>Add</button>
+    </form>
 	</li>
   {{/if}}
   {{#each model.songs as |song|}}

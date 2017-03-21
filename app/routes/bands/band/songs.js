@@ -2,19 +2,24 @@ import Ember from 'ember';
 import Song from '../../../models/song';
 
 export default Ember.Route.extend({
-  model() {
-    return this.modelFor('bands.band');
+  resetController(controller) {
+    controller.set('songCreationStarted', false);
   },
 
   actions: {
-  	createSong() {
-  		var controller = this.get('controller');
-  		var band = this.modelFor('bands.band');
-  		var title = controller.get('title');
+    didTransition() {
+      var band = this.modelFor('bands.band');
+      document.title = `${band.get('name')} songs - Rock & Roll`;
+    },
 
-  		var song = Song.create({ title: title, band: band });
-  		band.get('songs').pushObject(song);
-  		controller.set('title', '');
-  	},
+    createSong() {
+      var controller = this.get('controller');
+      var band = this.modelFor('bands.band');
+      var title = controller.get('title');
+
+      var song = Song.create({ title: title, band: band });
+      band.get('songs').pushObject(song);
+      controller.set('title', '');
+    },
   }
 });

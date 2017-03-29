@@ -11,5 +11,5 @@ export default function wait(value, delay) {
         resolve(result);
       });
     }, delay);
-  })
+  });
 }

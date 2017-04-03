@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
 
   sortBy: 'ratingDesc',
   sortProperties: Ember.computed('sortBy', function() {
-    var options = {
+    const options = {
       'ratingDesc': 'rating:desc,title:asc',
       'ratingAsc': 'rating:asc,title:asc',
       'titleDesc': 'title:desc',
@@ -33,14 +33,14 @@ export default Ember.Controller.extend({
   searchTerm: '',
 
   matchingSongs: Ember.computed('model.songs.@each.title', 'searchTerm', function() {
-    var searchTerm = this.get('searchTerm').toLowerCase();
+    const searchTerm = this.get('searchTerm').toLowerCase();
     return this.get('model.songs').filter(function(song) {
       return song.get('title').toLowerCase().indexOf(searchTerm) !== -1;
     });
   }),
 
   newSongPlaceholder: Ember.computed('model.name', function() {
-    var bandName = this.get('model.name');
+    const bandName = this.get('model.name');
     return `New ${capitalize(bandName)} song`;
   }),
 
@@ -49,8 +49,8 @@ export default Ember.Controller.extend({
       this.set('songCreationStarted', true);
     },
     updateRating: function(params) {
-      var song = params.item,
-          rating = params.rating;
+      let song = params.item;
+      let rating = params.rating;
       if (song.get('rating') === rating) {
         rating = null;
       }

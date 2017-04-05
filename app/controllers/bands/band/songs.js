@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import { capitalize } from '../../../helpers/capitalize';
+const { Controller, computed, isEmpty } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   queryParams: {
     sortBy: 'sort',
     searchTerm: 's',
@@ -9,16 +10,16 @@ export default Ember.Controller.extend({
   songCreationStarted: false,
   title: '',
 
-  isAddButtonDisabled: Ember.computed('title', function() {
-    return Ember.isEmpty(this.get('title'));
+  isAddButtonDisabled: computed('title', function() {
+    return isEmpty(this.get('title'));
   }),
 
-  canCreateSong: Ember.computed('songCreationStarted', 'model.songs.length', function() {
+  canCreateSong: computed('songCreationStarted', 'model.songs.length', function() {
     return this.get('songCreationStarted') || this.get('model.songs.length');
   }),
 
   sortBy: 'ratingDesc',
-  sortProperties: Ember.computed('sortBy', function() {
+  sortProperties: computed('sortBy', function() {
     const options = {
       'ratingDesc': 'rating:desc,title:asc',
       'ratingAsc': 'rating:asc,title:asc',
@@ -32,14 +33,14 @@ export default Ember.Controller.extend({
 
   searchTerm: '',
 
-  matchingSongs: Ember.computed('model.songs.@each.title', 'searchTerm', function() {
-    const searchTerm = this.get('searchTerm').toLowerCase();
-    return this.get('model.songs').filter(function(song) {
+  matchingSongs: computed('model.songs.@each.title', 'searchTerm', function() {
+    return this.get('model.songs').filter((song) => {
+      const searchTerm = this.get('searchTerm').toLowerCase();
       return song.get('title').toLowerCase().indexOf(searchTerm) !== -1;
     });
   }),
 
-  newSongPlaceholder: Ember.computed('model.name', function() {
+  newSongPlaceholder: computed('model.name', function() {
     const bandName = this.get('model.name');
     return `New ${capitalize(bandName)} song`;
   }),
@@ -49,8 +50,7 @@ export default Ember.Controller.extend({
       this.set('songCreationStarted', true);
     },
     updateRating: function(params) {
-      let song = params.item;
-      let rating = params.rating;
+      let { item: song, rating } = params;
       if (song.get('rating') === rating) {
         rating = null;
       }

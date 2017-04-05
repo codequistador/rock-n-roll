@@ -8,7 +8,7 @@ export default Ember.Route.extend({
       return band.save();
     },
     willTransition(transition) {
-      var controller = this.get('controller'),
+      let controller = this.get('controller'),
       leave;
 
       if (controller.get('isEditing')) {

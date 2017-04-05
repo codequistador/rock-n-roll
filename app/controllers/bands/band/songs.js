@@ -10,13 +10,10 @@ export default Controller.extend({
   songCreationStarted: false,
   title: '',
 
-  isAddButtonDisabled: computed('title', function() {
-    return isEmpty(this.get('title'));
-  }),
+  isAddButtonDisabled: computed.empty('title'),
 
-  canCreateSong: computed('songCreationStarted', 'model.songs.length', function() {
-    return this.get('songCreationStarted') || this.get('model.songs.length');
-  }),
+  hasSongs: computed.bool('model.songs.length'),
+  canCreateSong: computed.or('songCreationStarted', 'hasSongs'),
 
   sortBy: 'ratingDesc',
   sortProperties: computed('sortBy', function() {
